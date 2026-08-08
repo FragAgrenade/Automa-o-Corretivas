@@ -3,7 +3,7 @@ import re
 
 from openpyxl import load_workbook 
 
-COLUNAS_OS {"OS", "PROTOCOLO", "ORDEM_SERVICO", "NUMERO_OS"}
+COLUNAS_OS = {"OS", "PROTOCOLO", "ORDEM_SERVICO", "NUMERO_OS"}
 
 def normalizar_cabecalho(valor: object) -> str:
     texto = "" if valor is None else str(valor)
@@ -40,17 +40,17 @@ def ler_os_excel(caminho: str | Path) -> list[str]:
             indices_os = [
                 indice
                 for indice, cabecalho in enumerate(cabecalhos)
-                id cabecalho in COLUNAS_OS
+                if cabecalho in COLUNAS_OS
             ]
 
-            if not indices_os
+            if not indices_os:
                 continue
 
             numeros = []
 
             for linha in planilha.inter_rows(min_row=2, values_only=True):
                 for indice in indices_os:
-                valor = linha[indice]
+                    valor = linha[indice]
 
                 if valor is not None:
                         numeros.extend(extrair_os_do_texto(str(valor)))
